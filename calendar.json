@@ -1,0 +1,256 @@
+[
+  {
+    "title": "Morning Commute",
+    "start": "2026-06-17T08:00:00",
+    "end": "2026-06-17T09:00:00",
+    "activity": "Work",
+    "location": {
+      "name": "Downtown Houston",
+      "latitude": 29.7604,
+      "longitude": -95.3698
+    }
+  },
+  {
+    "title": "Evening Tennis",
+    "start": "2026-06-17T18:00:00",
+    "end": "2026-06-17T20:00:00",
+    "activity": "Sports",
+    "location": {
+      "name": "Memorial Park",
+      "latitude": 29.7674,
+      "longitude": -95.4410
+    }
+  },
+
+  {
+    "title": "University Classes",
+    "start": "2026-06-17T08:00:00",
+    "end": "2026-06-17T09:00:00",
+    "activity": "Work",
+    "location": {
+      "name": "New York City, NY",
+      "latitude": 40.7128,
+      "longitude": -74.0060
+    }
+  },
+  {
+    "title": "Client Presentation",
+    "start": "2026-06-17T10:00:00",
+    "end": "2026-06-17T11:30:00",
+    "activity": "Work",
+    "location": {
+      "name": "Chicago, IL",
+      "latitude": 41.8781,
+      "longitude": -87.6298
+    }
+  },
+  {
+    "title": "Lunch with Friends",
+    "start": "2026-06-17T12:30:00",
+    "end": "2026-06-17T14:00:00",
+    "activity": "Social",
+    "location": {
+      "name": "Los Angeles, CA",
+      "latitude": 34.0522,
+      "longitude": -118.2437
+    }
+  },
+  {
+    "title": "Evening Tennis",
+    "start": "2026-06-17T18:00:00",
+    "end": "2026-06-17T20:00:00",
+    "activity": "Sports",
+    "location": {
+      "name": "Miami, FL",
+      "latitude": 25.7617,
+      "longitude": -80.1918
+    }
+  },
+  {
+    "title": "Morning Run",
+    "start": "2026-06-18T06:30:00",
+    "end": "2026-06-18T07:30:00",
+    "activity": "Outdoor",
+    "location": {
+      "name": "Seattle, WA",
+      "latitude": 47.6062,
+      "longitude": -122.3321
+    }
+  },
+  {
+    "title": "Doctor Appointment",
+    "start": "2026-06-18T09:00:00",
+    "end": "2026-06-18T10:00:00",
+    "activity": "Appointment",
+    "location": {
+      "name": "Boston, MA",
+      "latitude": 42.3601,
+      "longitude": -71.0589
+    }
+  },
+  {
+    "title": "Coffee Meetup",
+    "start": "2026-06-18T11:00:00",
+    "end": "2026-06-18T12:00:00",
+    "activity": "Social",
+    "location": {
+      "name": "Portland, OR",
+      "latitude": 45.5152,
+      "longitude": -122.6784
+    }
+  },
+  {
+    "title": "Yoga Class",
+    "start": "2026-06-18T18:00:00",
+    "end": "2026-06-18T19:00:00",
+    "activity": "Fitness",
+    "location": {
+      "name": "Austin, TX",
+      "latitude": 30.2672,
+      "longitude": -97.7431
+    }
+  },
+  {
+    "title": "Airport Pickup",
+    "start": "2026-06-19T08:00:00",
+    "end": "2026-06-19T10:00:00",
+    "activity": "Travel",
+    "location": {
+      "name": "Denver, CO",
+      "latitude": 39.7392,
+      "longitude": -104.9903
+    }
+  },
+  {
+    "title": "Project Workshop",
+    "start": "2026-06-19T11:00:00",
+    "end": "2026-06-19T14:00:00",
+    "activity": "Work",
+    "location": {
+      "name": "San Francisco, CA",
+      "latitude": 37.7749,
+      "longitude": -122.4194
+    }
+  },
+  {
+    "title": "Dinner with Family",
+    "start": "2026-06-19T19:00:00",
+    "end": "2026-06-19T21:00:00",
+    "activity": "Social",
+    "location": {
+      "name": "Phoenix, AZ",
+      "latitude": 33.4484,
+      "longitude": -112.0740
+    }
+  },
+  {
+    "title": "Cycling Session",
+    "start": "2026-06-20T07:00:00",
+    "end": "2026-06-20T09:00:00",
+    "activity": "Sports",
+    "location": {
+      "name": "Minneapolis, MN",
+      "latitude": 44.9778,
+      "longitude": -93.2650
+    }
+  },
+  {
+    "title": "Grocery Shopping",
+    "start": "2026-06-20T10:00:00",
+    "end": "2026-06-20T11:30:00",
+    "activity": "Errand",
+    "location": {
+      "name": "Atlanta, GA",
+      "latitude": 33.7490,
+      "longitude": -84.3880
+    }
+  },
+  {
+    "title": "Birthday Party",
+    "start": "2026-06-20T18:00:00",
+    "end": "2026-06-20T22:00:00",
+    "activity": "Social",
+    "location": {
+      "name": "Las Vegas, NV",
+      "latitude": 36.1699,
+      "longitude": -115.1398
+    }
+  },
+  {
+    "title": "Farmers Market Visit",
+    "start": "2026-06-21T09:00:00",
+    "end": "2026-06-21T11:00:00",
+    "activity": "Outdoor",
+    "location": {
+      "name": "Nashville, TN",
+      "latitude": 36.1627,
+      "longitude": -86.7816
+    }
+  },
+  {
+    "title": "Museum Tour",
+    "start": "2026-06-21T13:00:00",
+    "end": "2026-06-21T15:00:00",
+    "activity": "Leisure",
+    "location": {
+      "name": "Washington, DC",
+      "latitude": 38.9072,
+      "longitude": -77.0369
+    }
+  },
+  {
+    "title": "Beach Volleyball",
+    "start": "2026-06-21T16:00:00",
+    "end": "2026-06-21T18:00:00",
+    "activity": "Sports",
+    "location": {
+      "name": "San Diego, CA",
+      "latitude": 32.7157,
+      "longitude": -117.1611
+    }
+  },
+  {
+    "title": "Business Networking Event",
+    "start": "2026-06-22T08:30:00",
+    "end": "2026-06-22T10:30:00",
+    "activity": "Work",
+    "location": {
+      "name": "Dallas, TX",
+      "latitude": 32.7767,
+      "longitude": -96.7970
+    }
+  },
+  {
+    "title": "Hiking Adventure",
+    "start": "2026-06-22T14:00:00",
+    "end": "2026-06-22T18:00:00",
+    "activity": "Outdoor",
+    "location": {
+      "name": "Salt Lake City, UT",
+      "latitude": 40.7608,
+      "longitude": -111.8910
+    }
+  },
+  {
+    "title": "Concert Night",
+    "start": "2026-06-22T19:30:00",
+    "end": "2026-06-22T22:30:00",
+    "activity": "Entertainment",
+    "location": {
+      "name": "New Orleans, LA",
+      "latitude": 29.9511,
+      "longitude": -90.0715
+    }
+  },
+  {
+    "title": "Bowling",
+    "start": "2025-02-22T22:30:00",
+    "end": "2026-02-22T23:59:00",
+    "activity": "Entertainment",
+    "location": {
+      "name": "New Orleans, LA",
+      "latitude": 29.9511,
+      "longitude": -90.0715
+    }
+  }
+]
