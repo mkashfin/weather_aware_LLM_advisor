@@ -7,7 +7,7 @@ from typing import Callable, TextIO
 
 from assistant.advice import AdviceError, generate_advice
 from assistant.calendar import Event
-from assistant.weather import WeatherError, fetch_weather
+from assistant.weather import WeatherError, WeatherForecast, fetch_weather
 
 PROMPT = "assistant> "
 UNKNOWN_COMMAND = "Unknown command. Type 'help' for available commands."
@@ -34,6 +34,24 @@ def format_event_context(event: Event) -> str:
         f"Time: {time_str}\n"
         f"Location: {event.location.name}"
     )
+
+
+def format_weather_details(event: Event, forecast: WeatherForecast) -> str:
+    """Format weather forecast details for CLI display."""
+    lines = [
+        "Weather:",
+        f"  Location: {event.location.name}",
+        f"  Forecast time: {forecast.forecast_time.strftime('%Y-%m-%d %H:%M')}",
+        f"  Temperature: {forecast.temperature_f:.1f}°F ({forecast.temperature_c:.1f}°C)",
+        f"  Precipitation probability: {forecast.precipitation_probability:.0f}%",
+        f"  Precipitation: {forecast.precipitation_mm:.1f} mm",
+        f"  Wind speed: {forecast.wind_speed_kmh:.1f} km/h",
+        f"  Humidity: {forecast.humidity_percent:.0f}%",
+        f"  Condition: {forecast.condition}",
+    ]
+    if forecast.fallback_note:
+        lines.append(f"  {forecast.fallback_note}")
+    return "\n".join(lines)
 
 
 def format_event_list(events: list[Event]) -> str:
@@ -70,6 +88,8 @@ def _process_advice_for_event(
         output.write(f"{WEATHER_ERROR}\n")
         output.write("Advice generation skipped.\n")
         return
+
+    output.write(f"{format_weather_details(event, forecast)}\n\n")
 
     try:
         if include_event_context:
