@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Any
 
 import requests
@@ -53,6 +53,9 @@ class WeatherForecast:
     temperature_c: float
     temperature_f: float
     precipitation_probability: float
+    precipitation_mm: float
+    wind_speed_kmh: float
+    humidity_percent: float
     condition: str
     forecast_time: datetime
     deviation_minutes: int
@@ -78,15 +81,35 @@ def select_nearest_forecast(
     temperatures: list[float],
     precipitation_probs: list[float],
     weather_codes: list[int],
+    wind_speeds: list[float],
+    humidities: list[float],
+    precipitation_mm: list[float],
 ) -> WeatherForecast:
     """Select the hourly forecast nearest to the event start time."""
     if not times:
         raise WeatherError("No hourly forecast times available.")
 
-    paired = list(zip(times, temperatures, precipitation_probs, weather_codes, strict=True))
-    best_time, best_temp, best_precip, best_code = min(
-        paired, key=lambda item: abs((item[0] - event_start).total_seconds())
+    paired = list(
+        zip(
+            times,
+            temperatures,
+            precipitation_probs,
+            weather_codes,
+            wind_speeds,
+            humidities,
+            precipitation_mm,
+            strict=True,
+        )
     )
+    (
+        best_time,
+        best_temp,
+        best_precip,
+        best_code,
+        best_wind,
+        best_humidity,
+        best_precip_mm,
+    ) = min(paired, key=lambda item: abs((item[0] - event_start).total_seconds()))
     deviation = int(abs((best_time - event_start).total_seconds()) // 60)
     used_fallback = deviation > MAX_DEVIATION_MINUTES
 
@@ -102,6 +125,9 @@ def select_nearest_forecast(
         temperature_c=best_temp,
         temperature_f=celsius_to_fahrenheit(best_temp),
         precipitation_probability=best_precip,
+        precipitation_mm=best_precip_mm,
+        wind_speed_kmh=best_wind,
+        humidity_percent=best_humidity,
         condition=weather_code_to_condition(int(best_code)),
         forecast_time=best_time,
         deviation_minutes=deviation,
@@ -120,8 +146,20 @@ def parse_forecast_response(data: dict[str, Any], event: Event) -> WeatherForeca
     temperatures = hourly.get("temperature_2m")
     precipitation = hourly.get("precipitation_probability")
     weather_codes = hourly.get("weather_code")
+    wind_speeds = hourly.get("wind_speed_10m")
+    humidities = hourly.get("relative_humidity_2m")
+    precipitation_mm = hourly.get("precipitation")
 
-    if not all(isinstance(values, list) for values in (time_values, temperatures, precipitation, weather_codes)):
+    required_arrays = (
+        time_values,
+        temperatures,
+        precipitation,
+        weather_codes,
+        wind_speeds,
+        humidities,
+        precipitation_mm,
+    )
+    if not all(isinstance(values, list) for values in required_arrays):
         raise WeatherError("Unexpected API response: hourly arrays missing or invalid.")
 
     if not time_values:
@@ -129,7 +167,14 @@ def parse_forecast_response(data: dict[str, Any], event: Event) -> WeatherForeca
 
     times = [_parse_api_time(value) for value in time_values]
     return select_nearest_forecast(
-        event.start, times, temperatures, precipitation, weather_codes
+        event.start,
+        times,
+        temperatures,
+        precipitation,
+        weather_codes,
+        wind_speeds,
+        humidities,
+        precipitation_mm,
     )
 
 
@@ -139,7 +184,10 @@ def fetch_weather(event: Event, session: requests.Session | None = None) -> Weat
     params = {
         "latitude": event.location.latitude,
         "longitude": event.location.longitude,
-        "hourly": "temperature_2m,precipitation_probability,weather_code",
+        "hourly": (
+            "temperature_2m,precipitation_probability,weather_code,"
+            "wind_speed_10m,relative_humidity_2m,precipitation"
+        ),
         "timezone": "auto",
     }
 
