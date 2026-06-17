@@ -36,6 +36,9 @@ SAMPLE_API_RESPONSE = {
         "temperature_2m": [22.0, 24.0, 26.0],
         "precipitation_probability": [10, 55, 30],
         "weather_code": [1, 63, 2],
+        "wind_speed_10m": [8.0, 12.5, 10.0],
+        "relative_humidity_2m": [70, 85, 75],
+        "precipitation": [0.0, 1.2, 0.3],
     }
 }
 
@@ -53,11 +56,21 @@ def test_weather_code_mapping() -> None:
 def test_nearest_forecast_selection() -> None:
     times = [datetime(2026, 6, 17, 8, 0), datetime(2026, 6, 17, 9, 0)]
     forecast = select_nearest_forecast(
-        SAMPLE_EVENT.start, times, [24.0, 26.0], [55, 30], [63, 2]
+        SAMPLE_EVENT.start,
+        times,
+        [24.0, 26.0],
+        [55, 30],
+        [63, 2],
+        [12.5, 10.0],
+        [85, 75],
+        [1.2, 0.3],
     )
     assert forecast.forecast_time == datetime(2026, 6, 17, 8, 0)
     assert forecast.temperature_c == 24.0
     assert forecast.precipitation_probability == 55
+    assert forecast.wind_speed_kmh == 12.5
+    assert forecast.humidity_percent == 85
+    assert forecast.precipitation_mm == 1.2
     assert forecast.condition == "Moderate rain"
     assert forecast.deviation_minutes == 15
     assert forecast.used_fallback is False
@@ -66,7 +79,14 @@ def test_nearest_forecast_selection() -> None:
 def test_forecast_outside_deviation_uses_fallback() -> None:
     times = [datetime(2026, 6, 17, 6, 0), datetime(2026, 6, 17, 10, 0)]
     forecast = select_nearest_forecast(
-        SAMPLE_EVENT.start, times, [20.0, 28.0], [5, 10], [1, 1]
+        SAMPLE_EVENT.start,
+        times,
+        [20.0, 28.0],
+        [5, 10],
+        [1, 1],
+        [6.0, 8.0],
+        [60, 65],
+        [0.0, 0.0],
     )
     assert forecast.used_fallback is True
     assert "No forecast within" in forecast.fallback_note
@@ -90,6 +110,9 @@ def test_missing_hourly_values_raises() -> None:
                     "temperature_2m": [],
                     "precipitation_probability": [],
                     "weather_code": [],
+                    "wind_speed_10m": [],
+                    "relative_humidity_2m": [],
+                    "precipitation": [],
                 }
             },
             SAMPLE_EVENT,
