@@ -10,6 +10,7 @@ from assistant.repl import (
     UNKNOWN_COMMAND,
     format_event_list,
     format_help,
+    format_weather_details,
     handle_command,
     run_repl,
 )
@@ -36,6 +37,9 @@ MOCK_FORECAST = WeatherForecast(
     temperature_c=24.0,
     temperature_f=75.2,
     precipitation_probability=20,
+    precipitation_mm=0.5,
+    wind_speed_kmh=12.0,
+    humidity_percent=68,
     condition="Partly cloudy",
     forecast_time=datetime(2026, 6, 17, 8, 0),
     deviation_minutes=0,
@@ -90,6 +94,9 @@ def test_advise_all_command() -> None:
     result = output.getvalue()
     assert "Morning Commute" in result
     assert "Evening Tennis" in result
+    assert "Weather:" in result
+    assert "Temperature:" in result
+    assert "Wind speed:" in result
     assert "Line one." in result
 
 
@@ -105,8 +112,8 @@ def test_advise_index_command() -> None:
     result = output.getvalue()
     assert "Evening Tennis" in result
     assert "Activity: Sports" in result
-    assert "Date: 2026-06-17" in result
-    assert "Time: 18:00" in result
+    assert "Weather:" in result
+    assert "Humidity:" in result
     assert "Location: Memorial Park" in result
     assert "Morning Commute" not in result
 
@@ -126,6 +133,16 @@ def test_unknown_command() -> None:
     output = StringIO()
     handle_command("foo", SAMPLE_EVENTS, output)
     assert output.getvalue().strip() == UNKNOWN_COMMAND
+
+
+def test_format_weather_details() -> None:
+    details = format_weather_details(SAMPLE_EVENTS[0], MOCK_FORECAST)
+    assert "Location: Downtown Houston" in details
+    assert "Temperature: 75.2°F" in details
+    assert "Precipitation probability: 20%" in details
+    assert "Wind speed: 12.0 km/h" in details
+    assert "Humidity: 68%" in details
+    assert "Condition: Partly cloudy" in details
 
 
 def test_format_helpers() -> None:
