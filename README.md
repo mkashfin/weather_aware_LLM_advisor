@@ -93,6 +93,16 @@ Date: 2026-06-17
 Time: 08:00
 Location: Downtown Houston
 
+Weather:
+  Location: Downtown Houston
+  Forecast time: 2026-06-17 08:00
+  Temperature: 75.2°F (24.0°C)
+  Precipitation probability: 55%
+  Precipitation: 1.2 mm
+  Wind speed: 12.5 km/h
+  Humidity: 85%
+  Condition: Moderate rain
+
 [5–7 lines of weather-aware advice from the LLM]
 
 assistant> exit
