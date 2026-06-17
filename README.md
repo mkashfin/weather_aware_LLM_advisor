@@ -61,7 +61,7 @@ Start the assistant from the project root:
 python main.py
 ```
 
-On startup, the app loads `calendar.json` and displays all available commands. You will then see all the available commands and the prompt:
+On startup, the app loads `calendar.json` and displays all available commands. You will then see the prompt:
 
 ```
 assistant>
@@ -312,7 +312,7 @@ python -m pytest tests/test_repl.py::test_list_command -v
 ## Project Structure
 
 ```
-Final Submission/
+main/
 ├── main.py              # Application entry point
 ├── calendar.json        # Your schedule (edit this file)
 ├── requirements.txt     # Python dependencies
